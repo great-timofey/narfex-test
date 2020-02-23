@@ -6,14 +6,9 @@ module.exports = {
       {
         alias: {
           '@components': './src/components',
-          '@scenes': './src/scenes',
-          '@hooks': './src/hooks',
-          '@navigation': './src/navigation',
-          '@redux': './src/redux',
-          '@utils': './src/utils',
-          '@global': './src/global',
+          '@screens': './src/screens',
           '@assets': './assets',
-          '@services': './src/services',
+          '@global': './src/global',
         },
       },
     ],
