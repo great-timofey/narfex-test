@@ -3,7 +3,9 @@ import { Dimensions } from 'react-native'
 export const colors = {
   cardBase: '#FFFFFF',
   background: '#FAF7F5',
+  separator: '#F5F0EB',
   text: '#212121',
+  textSecondary: '#808080',
   semanticPositive: '#009B73',
   semanticNegative: '#F03723',
 }

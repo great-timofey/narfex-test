@@ -5,6 +5,7 @@ import MarketsTabIcon from '@assets/images/markets-tab-icon.png'
 import MarketsTabIconFocused from '@assets/images/markets-tab-icon-focused.png'
 import LogoTabIcon from '@assets/images/logo-tab-icon.png'
 import LogoTabIconFocused from '@assets/images/logo-tab-icon-focused.png'
+import * as SCREEN_NAMES from '@global/screenNames'
 
 import styles from './styles'
 
@@ -12,9 +13,9 @@ export const TabBar = memo(function({ state, navigation }) {
   const getRouteIcon = useCallback((route, focused) => {
     let iconSource
 
-    if (route.name === 'Markets') {
+    if (route.name === SCREEN_NAMES.MARKETS) {
       iconSource = focused ? MarketsTabIconFocused : MarketsTabIcon
-    } else if (route.name === 'Logo') {
+    } else if (route.name === SCREEN_NAMES.LOGO) {
       iconSource = focused ? LogoTabIconFocused : LogoTabIcon
     }
 

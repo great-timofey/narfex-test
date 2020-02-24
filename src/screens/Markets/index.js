@@ -1,50 +1,70 @@
 import React, { memo, useEffect, useCallback, useState } from 'react'
-import { View, SafeAreaView } from 'react-native'
+import { ActivityIndicator, FlatList, SafeAreaView, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { Market } from '@components'
+import { ORDER_BOOK } from '@global/screenNames'
 
 import styles from './styles'
 
 export const Markets = memo(function() {
   const [marketList, setMarketList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [hasInitiallyLoaded, setHasInitiallyLoaded] = useState(false)
   const { navigate } = useNavigation()
 
   const onMarketPress = useCallback(
     marketName => () => {
       if (!marketName) return
-      navigate('OrderBook', { marketName })
+      navigate(ORDER_BOOK, { marketName })
     },
     [navigate],
   )
 
-  useEffect(() => {
-    async function getPairs() {
-      //  eslint-disable-next-line
-      const { markets } = await fetch('http://api.narfex.com/api/v1/exchange/markets').then(res =>
-        res.json(),
-      )
+  const getMarkets = useCallback(async () => {
+    setLoading(true)
 
-      if (markets.length > 1) {
-        setMarketList(markets.slice(0, 2))
-      }
+    //  eslint-disable-next-line
+    const { markets } = await fetch('http://api.narfex.com/api/v1/exchange/markets').then(res =>
+      res.json(),
+    )
+
+    if (markets.length > 1) {
+      setMarketList(markets)
     }
 
-    getPairs()
+    setHasInitiallyLoaded(true)
+    setLoading(false)
   }, [])
+
+  useEffect(() => {
+    getMarkets()
+  }, [getMarkets])
 
   return (
     <SafeAreaView>
       <View style={styles.screen}>
-        {marketList.map(market => (
-          <Market
-            key={market.ticker.market}
-            onPress={onMarketPress}
-            market={market.ticker.market}
-            percent={market.ticker.percent}
-            price={market.ticker.price}
+        {hasInitiallyLoaded ? (
+          <FlatList
+            data={marketList}
+            refreshing={loading}
+            onRefresh={getMarkets}
+            renderItem={({ item, index }) => (
+              <Market
+                key={item.ticker.market}
+                bookmarked={index === 0}
+                onPress={onMarketPress}
+                market={item.ticker.market}
+                percent={item.ticker.percent}
+                price={item.ticker.price}
+              />
+            )}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            keyExtractor={item => item.market.name}
           />
-        ))}
+        ) : (
+          <ActivityIndicator />
+        )}
       </View>
     </SafeAreaView>
   )

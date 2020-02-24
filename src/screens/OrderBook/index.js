@@ -3,6 +3,7 @@ import { View, ScrollView, Image, ActivityIndicator } from 'react-native'
 
 import { Typography, ProgressBarVertical, ProgressBarHorizontal } from '@components'
 import IconArrowUp from '@assets/images/arrow-small-up.png'
+import { useMarketName } from '@global/useMarketName'
 
 import styles from './styles'
 import { initialState, reducer } from './utils'
@@ -10,6 +11,7 @@ import { initialState, reducer } from './utils'
 export const OrderBook = memo(function({ route }) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useState(true)
+  const [marketName, marketSuffix] = useMarketName(route.params.marketName)
 
   useEffect(() => {
     const { params } = route
@@ -86,10 +88,10 @@ export const OrderBook = memo(function({ route }) {
           <View style={styles.table}>
             <View style={styles.tableLegend}>
               <Typography style={[styles.legendText, styles.legendTextFirst]}>
-                Price USDT
+                Price {marketSuffix}
               </Typography>
-              <Typography style={[styles.legendText]}>Amount BTC</Typography>
-              <Typography style={[styles.legendText]}>Total USDT</Typography>
+              <Typography style={[styles.legendText]}>Amount {marketName}</Typography>
+              <Typography style={[styles.legendText]}>Total {marketSuffix}</Typography>
             </View>
             <View style={styles.tableSection}>
               <ProgressBarVertical
