@@ -13,20 +13,10 @@ export default StyleSheet.create({
   content: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
     position: 'absolute',
     left: 0,
     width: '100%',
     height: 24,
-  },
-  price: {
-    // marginLeft: 19,
-  },
-  amount: {
-    // marginLeft: 39,
-  },
-  total: {
-    // marginLeft: 44,
   },
   bar: {
     position: 'absolute',

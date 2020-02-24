@@ -4,7 +4,7 @@ import { colors, hex2rgba } from '@global/styles'
 
 export default StyleSheet.create({
   container: {
-    height: 156,
+    height: '100%',
     position: 'absolute',
     left: -16,
     width: 24,
@@ -34,5 +34,6 @@ export default StyleSheet.create({
     lineHeight: 16,
     position: 'absolute',
     paddingVertical: 12,
+    alignSelf: 'center',
   },
 })

@@ -5,8 +5,6 @@ import { Typography } from '../Typography'
 
 import styles from './styles'
 
-// maxheight = 156 / 100 * progress
-
 export const ProgressBarVertical = memo(function({ progress, label, positive, style = [] }) {
   return (
     <View
@@ -20,10 +18,10 @@ export const ProgressBarVertical = memo(function({ progress, label, positive, st
         style={[
           styles.bar,
           positive ? styles.barPositive : styles.barNegative,
-          { height: Math.round((156 / 100) * progress) },
+          { height: `${Math.round(progress)}%` },
         ]}
       >
-        {label && <Typography style={[styles.label]}>{label}</Typography>}
+        {label !== '' && <Typography style={[styles.label]}>{label}</Typography>}
       </View>
     </View>
   )
