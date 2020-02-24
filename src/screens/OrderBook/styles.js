@@ -2,16 +2,14 @@ import { StyleSheet } from 'react-native'
 
 import { colors, deviceWidth } from '@global/styles'
 
-const tableSectionHeight = 156
 const rowHeight = 24
 const iconHeight = 16
 
 export default StyleSheet.create({
   screen: {
-    height: '100%',
-    width: '100%',
     paddingVertical: 16,
     backgroundColor: colors.background,
+    marginBottom: 30,
   },
   card: {
     padding: 16,
@@ -53,33 +51,42 @@ export default StyleSheet.create({
     paddingLeft: 40,
   },
   tableSection: {
-    height: tableSectionHeight,
     paddingLeft: 8,
   },
   tableCellText: {
     fontSize: 11,
+    textAlign: 'left',
   },
   bestPrice: {
-    position: 'absolute',
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
     height: rowHeight,
-    top: tableSectionHeight - rowHeight / 2,
     left: 24,
-    paddingLeft: 24,
+    paddingLeft: 12,
   },
   bestPriceHightlightedText: {
     color: colors.semanticPositive,
     fontWeight: 'bold',
-    marginRight: 24,
     fontSize: 13,
+    marginRight: 5,
   },
   arrowUp: {
     width: 8,
+    marginRight: 24,
     height: iconHeight,
-    position: 'absolute',
-    left: 75,
-    top: rowHeight / 2 - iconHeight / 2,
+  },
+  priceContainer: {
+    flex: 1 / 5,
+    alignItems: 'flex-end',
+  },
+  totalContainer: {
+    flex: 1 / 3,
+    marginRight: -20,
+    alignItems: 'flex-end',
+  },
+  amountContainer: {
+    flex: 1 / 3,
+    alignItems: 'flex-end',
   },
 })
