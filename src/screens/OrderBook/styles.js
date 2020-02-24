@@ -45,7 +45,7 @@ export default StyleSheet.create({
   legendText: {
     fontSize: 11,
     lineHeight: 16,
-    color: '#808080',
+    color: colors.textSecondary,
   },
   legendTextFirst: {
     paddingLeft: 40,
