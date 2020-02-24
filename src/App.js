@@ -1,15 +1,16 @@
 import 'react-native-gesture-handler'
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { Image, StatusBar, TouchableOpacity } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { Bids, Logo, OrderBook } from '@screens'
+import { Markets, Logo, OrderBook } from '@screens'
 import { TabBar } from '@components/TabBar'
+import IconBack from '@assets/images/icon-back.png'
 
 const IconStack = createStackNavigator()
-const BidStack = createStackNavigator()
+const MarketStack = createStackNavigator()
 const Tab = createBottomTabNavigator()
 
 const commonHeaderTitleStyles = {
@@ -40,28 +41,42 @@ function LogoStack() {
   )
 }
 
-function BidsStack() {
+function MarketsStack() {
   return (
-    <BidStack.Navigator>
-      <BidStack.Screen
-        name="Bids"
-        component={Bids}
+    <MarketStack.Navigator>
+      <MarketStack.Screen
+        name="Markets"
+        component={Markets}
         options={{
           title: 'Markets',
           headerTitleStyle: commonHeaderTitleStyles,
           headerStyle: commonHeaderStyles,
         }}
       />
-      <BidStack.Screen
+      <MarketStack.Screen
         name="OrderBook"
         component={OrderBook}
-        options={{
-          title: 'order book',
+        options={({ route }) => ({
+          title: route.params.marketName,
           headerTitleStyle: commonHeaderTitleStyles,
           headerStyle: commonHeaderStyles,
-        }}
+          headerLeft: ({ ...props }) => (
+            <TouchableOpacity
+              {...props}
+              style={{
+                width: 100,
+                height: 50,
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                paddingLeft: 20,
+              }}
+            >
+              <Image source={IconBack} style={{ width: 9, height: 18 }} resizeMode="contain" />
+            </TouchableOpacity>
+          ),
+        })}
       />
-    </BidStack.Navigator>
+    </MarketStack.Navigator>
   )
 }
 
@@ -71,8 +86,8 @@ function App() {
       <StatusBar barStyle="dark-content" />
       <Tab.Navigator tabBar={props => <TabBar {...props} />}>
         <Tab.Screen
-          name="Bids"
-          component={BidsStack}
+          name="Markets"
+          component={MarketsStack}
           options={({ route }) => {
             const routeName = route.state && route.state.routes[route.state.index].name
             return {
