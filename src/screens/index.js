@@ -1,3 +1,3 @@
 export { Logo } from './Logo'
-export { Bids } from './Bids'
+export { Markets } from './Markets'
 export { OrderBook } from './OrderBook'

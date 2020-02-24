@@ -2,19 +2,18 @@ import React, { memo, useEffect, useCallback, useState } from 'react'
 import { View, SafeAreaView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import { colors } from '@global/styles'
-import { Bid } from '@components'
+import { Market } from '@components'
 
-export const Bids = memo(function() {
+import styles from './styles'
+
+export const Markets = memo(function() {
   const [marketList, setMarketList] = useState([])
   const { navigate } = useNavigation()
 
-  const onBidPress = useCallback(
+  const onMarketPress = useCallback(
     marketName => () => {
       if (!marketName) return
-
-      const marketNameForExchangeBot = `market_${marketName.toLowerCase()}`
-      navigate('OrderBook', { marketName: marketNameForExchangeBot })
+      navigate('OrderBook', { marketName })
     },
     [navigate],
   )
@@ -36,19 +35,11 @@ export const Bids = memo(function() {
 
   return (
     <SafeAreaView>
-      <View
-        style={{
-          height: '100%',
-          width: '100%',
-          backgroundColor: colors.background,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.screen}>
         {marketList.map(market => (
-          <Bid
+          <Market
             key={market.ticker.market}
-            onPress={onBidPress}
+            onPress={onMarketPress}
             market={market.ticker.market}
             percent={market.ticker.percent}
             price={market.ticker.price}

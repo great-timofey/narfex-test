@@ -1,2 +1,5 @@
 export { TabBar } from './TabBar'
-export { Bid } from './Bid'
+export { Market } from './Market'
+export { Typography } from './Typography'
+export { ProgressBarVertical } from './ProgressBarVertical'
+export { ProgressBarHorizontal } from './ProgressBarHorizontal'

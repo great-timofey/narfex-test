@@ -1,32 +1,28 @@
 import React, { memo, useCallback } from 'react'
 import { View, TouchableOpacity, Image } from 'react-native'
 
-import BidsTabIcon from '@assets/images/bids-tab-icon.png'
-import BidsTabIconFocused from '@assets/images/bids-tab-icon-focused.png'
+import MarketsTabIcon from '@assets/images/markets-tab-icon.png'
+import MarketsTabIconFocused from '@assets/images/markets-tab-icon-focused.png'
 import LogoTabIcon from '@assets/images/logo-tab-icon.png'
 import LogoTabIconFocused from '@assets/images/logo-tab-icon-focused.png'
-import { colors } from '@global/styles'
+
+import styles from './styles'
 
 export const TabBar = memo(function({ state, navigation }) {
   const getRouteIcon = useCallback((route, focused) => {
     let iconSource
 
-    if (route.name === 'Bids') {
-      iconSource = focused ? BidsTabIconFocused : BidsTabIcon
+    if (route.name === 'Markets') {
+      iconSource = focused ? MarketsTabIconFocused : MarketsTabIcon
     } else if (route.name === 'Logo') {
       iconSource = focused ? LogoTabIconFocused : LogoTabIcon
     }
 
-    return <Image resizeMode="contain" source={iconSource} style={{ width: 24, height: 24 }} />
+    return <Image resizeMode="contain" source={iconSource} style={styles.icon} />
   }, [])
 
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        backgroundColor: '#FAF7F5',
-      }}
-    >
+    <View style={styles.container}>
       {state.routes.map((route, index) => {
         const focused = state.index === index
 
@@ -55,32 +51,11 @@ export const TabBar = memo(function({ state, navigation }) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={[
-              {
-                shadowColor: 'rgba(0, 0, 0, 0.08)',
-                shadowOffset: { width: 0, height: 6 },
-                shadowBlur: 24,
-                flex: 1,
-                position: 'relative',
-                height: 60,
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: colors.cardBase,
-              },
+              styles.tab,
               index === 0 ? { borderTopLeftRadius: 20 } : { borderTopRightRadius: 20 },
             ]}
           >
-            {focused && (
-              <View
-                style={{
-                  position: 'absolute',
-                  backgroundColor: 'red',
-                  width: 32,
-                  height: 2,
-                  top: 0,
-                  alignSelf: 'center',
-                }}
-              />
-            )}
+            {focused && <View style={styles.focus} />}
             {getRouteIcon(route, focused)}
           </TouchableOpacity>
         )
